@@ -1,6 +1,10 @@
 # undercity_gps_thingy
 a nextgen GPS handheld that uses an IMU for better accuracy
 
+## rough schematics (only so you know what to solder)
+
+<img src="./schematics/schematics.png" width="600" />
+
 ## BOM (at Undercity dev boards and breakout boards are used later a PCB might be good)
 
 sensors
@@ -11,3 +15,7 @@ display/ display driver
 - 4" Square Touchscreen (https://www.adafruit.com/product/5794)
 computing
 - Raspberry Pi Zero
+
+## Credits
+- Raspberry Pi Zero 2W Symbol and Footprint by Raspberry Pi
+  https://www.snapeda.com/parts/RASPBERRY%20PI%20ZERO%202%20W/Raspberry%20Pi/view-part/

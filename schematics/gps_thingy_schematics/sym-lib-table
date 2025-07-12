@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "rapi")(type "KiCad")(uri "${KIPRJMOD}/raspi/RASPBERRY_PI_ZERO_2_W.kicad_sym")(options "")(descr ""))
+)
