@@ -19,3 +19,7 @@ computing
 ## Credits
 - Raspberry Pi Zero 2W Symbol and Footprint by Raspberry Pi
   https://www.snapeda.com/parts/RASPBERRY%20PI%20ZERO%202%20W/Raspberry%20Pi/view-part/
+- ultimate GPS module 3D model by Jason Febbraro
+  https://grabcad.com/library/adafruit-ultimate-gps-gnss-with-usb-4279-1
+- BNO-055 IMU module 3D model by Brey Caraway
+  https://grabcad.com/library/adafruit-bno055-9-dof-imu-stemma-qt-1
