@@ -2155,9 +2155,9 @@
 		)
 		(uuid "09fd1f77-7ec0-43f0-a8f2-daab8a3637d1")
 	)
-	(text "IMU module"
+	(text "display connection"
 		(exclude_from_sim no)
-		(at 266.7 27.94 0)
+		(at 262.636 27.432 0)
 		(effects
 			(font
 				(size 1.27 1.27)
