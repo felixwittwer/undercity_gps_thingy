@@ -11,7 +11,7 @@
 <br>
 
 # undercity_gps_thingy (more like a IMU thingy now)
-a nextgen GPS handheld that uses an IMU for better accuracy
+a nextgen GPS handheld that uses an IMU for better accuracy (sould it be in the future for naw it is mole like a IMU positioning device)
 
 be aware that this was a single person project made during UNDERCITY a hardware hackathon. Therefore some things are not quite as polished due to time constarins.
 
@@ -19,7 +19,15 @@ Not quite polihed is a bit of an understatement. The GPS module uses a USP pinou
 
 ## The Project
 
+Every sub folder contains a seperate README with mor information about the stuff in it.
+
 [Demo Video -> https://www.youtube.com/watch?v=G0mOPf9O1qc](https://www.youtube.com/watch?v=G0mOPf9O1qc)
+
+Or watch as a gif here:
+
+<img src="./images/demo.gif" width="600" />
+
+<br>
 
 <img src="./images/cad_screenshot.png" width="600" />
 
