@@ -51,13 +51,17 @@ Besides the firmware for the individual controllers the is also a small [python 
 
 <img src="./firmware/pc visualisation/visualiser.png" width="600" />
 
-## rough schematics (only so you know what to solder)
+## rough schematics (only so you know what to solder) (v1)
 
 <img src="./schematics/schematics-v1.png" width="600" />
 
+### wiring diagram (v2)
+
+<img src="./images/wiring_diagram.png" width="600" />
+
 ## BOM (at Undercity dev boards and breakout boards are used later a PCB might be a good idea)
 
-### (v1)
+### (v1) sunday version :)
 
 sensors
 - BNO055 (https://www.adafruit.com/product/2472)
@@ -70,7 +74,7 @@ display/ display driver
 computing
 - Raspberry Pi Zero
 
-### (v2)
+### (v2) monday version
 sensors
 - BNO055 (https://www.adafruit.com/product/2472)
 
