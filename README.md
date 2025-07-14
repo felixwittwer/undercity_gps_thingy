@@ -19,6 +19,8 @@ Not quite polihed is a bit of an understatement. The GPS module uses a USP pinou
 
 ## The Project
 
+[Demo Video -> https://www.youtube.com/watch?v=G0mOPf9O1qc](https://www.youtube.com/watch?v=G0mOPf9O1qc)
+
 <img src="./images/cad_screenshot.png" width="600" />
 
 I know scrrenshots of CAD software isn't our best friend but just so you know where everything goes and how it was designed to look like :)
