@@ -3,6 +3,7 @@ import board
 import busio
 import adafruit_bno055
 import math
+import digitalio
 
 class SimpleKalman:
     def __init__(self, process_noise=0.01, sensor_noise=0.5, estimated_error=1.0):
@@ -54,16 +55,43 @@ kf_y = SimpleKalman()
 kf_z = SimpleKalman()
 
 velocity = [0.0, 0.0, 0.0]
-
-local_position = [0.0, 0.0, 0.0]   # resets when device is still
-global_position = [0.0, 0.0, 0.0]  # never resets
+local_position = [0.0, 0.0, 0.0]
+global_position = [0.0, 0.0, 0.0]
 
 prev_time = time.monotonic()
 
-movement_threshold = 0.5  # adjust as needed
+movement_threshold = 0.5
 still_time_required = 1.0
 still_start = None
 is_still = False
+
+# === Pulse output pin setup ===
+pulse_pin = digitalio.DigitalInOut(board.TX)  # use TX or another pin
+pulse_pin.direction = digitalio.Direction.OUTPUT
+pulse_pin.value = False
+
+# Pulse sending state machine variables
+pulse_state = 0   # 0=idle, 1=sending x pulse, 2=x gap, 3=y pulse, 4=y gap, 5=z pulse, 6=z gap
+pulse_start = 0
+pulse_duration = 0
+gap_duration = 0.05  # 50ms gap between pulses
+send_interval = 1.0  # send position every 1 second
+last_send_time = 0
+
+# Coordinates to send (normalized)
+coords_to_send = [0.0, 0.0, 0.0]
+
+# Pulse length range
+MIN_PULSE = 0.01  # 10 ms minimum pulse
+MAX_PULSE = 0.5   # 500 ms maximum pulse
+MAX_COORD_VALUE = 10.0  # expected max abs value of position for scaling
+
+
+def coord_to_pulse_length(value):
+    # Clamp to [-1,1]
+    v = max(-1.0, min(1.0, value))
+    # Map from [-1,1] to [MIN_PULSE, MAX_PULSE]
+    return MIN_PULSE + (v + 1) / 2 * (MAX_PULSE - MIN_PULSE)
 
 while True:
     now = time.monotonic()
@@ -90,7 +118,6 @@ while True:
             if still_start is None:
                 still_start = now
             elif (now - still_start) >= still_time_required and not is_still:
-                # Device is still, reset local reference frame and velocity
                 velocity = [0.0, 0.0, 0.0]
                 local_position = [0.0, 0.0, 0.0]
                 is_still = True
@@ -99,22 +126,48 @@ while True:
             still_start = None
             is_still = False
 
-            # Integrate acceleration to velocity and velocity to local_position
             for i, a in enumerate((ax_f, ay_f, az_f)):
                 velocity[i] += a * dt
                 local_position[i] += velocity[i] * dt
 
-            # Add local_position changes to global_position
             for i in range(3):
                 global_position[i] += local_position[i]
-                local_position[i] = 0  # reset local after adding to global
+                local_position[i] = 0
 
-        # Final coordinates = global + local (local is mostly zero except when moving)
         final_position = [global_position[i] + local_position[i] for i in range(3)]
 
         print(f"Position -> X: {final_position[0]:.2f}  Y: {final_position[1]:.2f}  Z: {final_position[2]:.2f}")
 
+        # Prepare coordinates to send once per second
+        if (now - last_send_time) >= send_interval and pulse_state == 0:
+            # Normalize coords to [-1,1] for pulse encoding
+            coords_to_send = [max(-1.0, min(1.0, c / MAX_COORD_VALUE)) for c in final_position]
+            pulse_state = 1  # start pulse sending
+            last_send_time = now
+
     else:
         print("Waiting for sensor data...")
 
-    time.sleep(0.05)
+    # ===== Non-blocking pulse sending state machine =====
+    if pulse_state != 0:
+        if pulse_state in [1, 3, 5]:  # sending a pulse HIGH
+            if pulse_start == 0:
+                # start pulse
+                pulse_start = now
+                idx = (pulse_state - 1) // 2  # 0 for x, 1 for y, 2 for z
+                pulse_duration = coord_to_pulse_length(coords_to_send[idx])
+                pulse_pin.value = True
+            elif (now - pulse_start) >= pulse_duration:
+                # pulse done, go LOW and next gap state
+                pulse_pin.value = False
+                pulse_start = now
+                pulse_state += 1  # advance to gap state
+
+        elif pulse_state in [2, 4, 6]:  # sending LOW gap
+            if (now - pulse_start) >= gap_duration:
+                pulse_start = 0
+                pulse_state += 1
+                if pulse_state > 6:
+                    pulse_state = 0  # done all pulses
+
+    time.sleep(0.01)  # small sleep to yield CPU, maintain ~100Hz loop
