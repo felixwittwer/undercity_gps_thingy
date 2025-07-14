@@ -4,7 +4,7 @@ import serial
 import re
 import sys
 
-# === CONFIG ===
+# config
 SERIAL_PORT = 'COM7'
 BAUD_RATE    = 9600
 WINDOW_SIZE  = 800
@@ -19,10 +19,10 @@ button_color_hover = (100, 100, 100)
 button_text_color = (255, 255, 255)
 
 
-# dynamically compute zoom
+# dynamically calculate zoom
 ZOOM = (WINDOW_SIZE/2 - DOT_RADIUS) / MAX_RANGE
 
-# === Initialize serial ===
+# intiialise serial
 try:
     ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1)
     print(f"Connected to {SERIAL_PORT}")
@@ -30,14 +30,14 @@ except serial.SerialException:
     print(f"Failed to connect to {SERIAL_PORT}")
     sys.exit(1)
 
-# === Initialize pygame ===
+# start pygame
 pygame.init()
 font = pygame.font.SysFont("monospace", 16)
 screen = pygame.display.set_mode((WINDOW_SIZE, WINDOW_SIZE))
 pygame.display.set_caption("Position Tracker")
 clock = pygame.time.Clock()
 
-# === Main Loop ===
+# main loop
 center    = (WINDOW_SIZE // 2, WINDOW_SIZE // 2)
 position  = [0, 0]
 last_line = ""
@@ -63,22 +63,21 @@ while running:
     py = int(center[1] - position[1] * ZOOM)
     print(f"Position: {position[0]:.2f}, {position[1]:.2f}")
 
-    # Clamp to window
     px = max(DOT_RADIUS, min(WINDOW_SIZE - DOT_RADIUS, px))
     py = max(DOT_RADIUS, min(WINDOW_SIZE - DOT_RADIUS, py))
 
-    # Draw
+    # draw the dot
     pygame.draw.circle(screen, (0, 255, 0), (px, py), DOT_RADIUS)
     pygame.draw.line(screen, (100, 100, 100), (center[0], 0), (center[0], WINDOW_SIZE))
     pygame.draw.line(screen, (100, 100, 100), (0, center[1]), (WINDOW_SIZE, center[1]))
     text_surface = font.render(last_line, True, (200, 200, 200))
     screen.blit(text_surface, (10, WINDOW_SIZE - 25))
 
-    # Detect mouse position
+    # detect mouse position
     mouse_pos = pygame.mouse.get_pos()
     mouse_clicked = pygame.mouse.get_pressed()[0]
 
-    # Change button color on hover
+    # change button color on hover
     if button_rect.collidepoint(mouse_pos):
         color = button_color_hover
         if mouse_clicked:
@@ -98,10 +97,10 @@ while running:
     else:
         color = button_color_idle
 
-    # Draw the button rectangle
+    # button rectangle
     pygame.draw.rect(screen, color, button_rect)
 
-    # Draw the button text
+    # button text
     button_font = pygame.font.SysFont("monospace", 20, bold=True)
     button_label = button_font.render("Reset Board", True, button_text_color)
     label_rect = button_label.get_rect(center=button_rect.center)

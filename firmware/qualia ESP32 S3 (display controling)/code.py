@@ -97,14 +97,13 @@ while True:
                 if 0 <= px < tft_timings['width'] and 0 <= py < tft_timings['height']:
                     dot_bitmap[px, py] = 1  # white
 
-        # Example: Simulate receiving sensor data (replace with SPI read later)
         sensor_value = 42.0 + 10 * math.sin(t)  # Simulated sensor value
 
         # Remove previous label if it exists
         if hasattr(group, "sensor_label"):
             group.remove(group.sensor_label)
 
-        # Create a new label with the sensor value
+        # label for future text
 
         sensor_text = f"Sensor: {sensor_value:.2f}"
         sensor_label = label.Label(terminalio.FONT, text=sensor_text, color=0xFFFFFF, x=10, y=30)
@@ -115,4 +114,4 @@ while True:
 
         prev_x, prev_y = x, y
 
-    time.sleep(0.005)  # Small delay for smoother animation
+    time.sleep(0.005)  # small delay for smoother animation

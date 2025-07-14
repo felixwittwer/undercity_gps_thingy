@@ -10,16 +10,20 @@
 
 <br>
 
-# undercity_gps_thingy
+# undercity_gps_thingy (more like a IMU thingy now)
 a nextgen GPS handheld that uses an IMU for better accuracy
 
 be aware that this was a single person project made during UNDERCITY a hardware hackathon. Therefore some things are not quite as polished due to time constarins.
 
-## Case
+Not quite polihed is a bit of an understatement. The GPS module uses a USP pinout for connection and therefor could not be integrated with the use of the available resources. 
 
-I know scrrenshots of CAd software isn't our best friend but just so you know where everything goes and how it was designed to look like :)
+## The Project
 
 <img src="./images/cad_screenshot.png" width="600" />
+
+I know scrrenshots of CAD software isn't our best friend but just so you know where everything goes and how it was designed to look like :)
+
+<img src="./images/final_assembly.jpg" width="600" />
 
 <br>
 
@@ -33,11 +37,17 @@ Now a real world image of the parts half assembled.
 
 There will are two separate firmware files one for the ESP32 S3 on the [Qualia board](/firmware/qualia%20ESP32%20S3%20(display%20controling)/) to drive the display and recieve the sensor data and [one for](/firmware/sensorreading%20stuff/) the seperate microcontroller who is collecting the data from the BNO-055.
 
+Besides the firmware for the individual controllers the is also a small [python visualiser](/firmware/pc%20visualisation/).
+
+<img src="./firmware/pc visualisation/visualiser.png" width="600" />
+
 ## rough schematics (only so you know what to solder)
 
-<img src="./schematics/schematics.png" width="600" />
+<img src="./schematics/schematics-v1.png" width="600" />
 
 ## BOM (at Undercity dev boards and breakout boards are used later a PCB might be a good idea)
+
+### (v1)
 
 sensors
 - BNO055 (https://www.adafruit.com/product/2472)
@@ -49,6 +59,17 @@ display/ display driver
 
 computing
 - Raspberry Pi Zero
+
+### (v2)
+sensors
+- BNO055 (https://www.adafruit.com/product/2472)
+
+display/ display driver
+- Adafruit Qualia (https://www.adafruit.com/product/5800)
+- 4" Square Touchscreen (https://www.adafruit.com/product/5794)
+
+computing
+- Adafruit ESP32 S2 Mini 1 (https://www.adafruit.com/product/5000)
 
 ## Credits
 - Raspberry Pi Zero 2W Symbol and Footprint by Raspberry Pi
