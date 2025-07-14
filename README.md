@@ -23,7 +23,7 @@ Every sub folder contains a seperate README with mor information about the stuff
 
 [Demo Video -> https://www.youtube.com/watch?v=G0mOPf9O1qc](https://www.youtube.com/watch?v=G0mOPf9O1qc)
 
-Or watch as a gif here:
+Or watch as a sped up gif here:
 
 <img src="./images/demo.gif" width="600" />
 
