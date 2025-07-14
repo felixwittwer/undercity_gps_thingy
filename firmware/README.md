@@ -13,4 +13,8 @@ There will are two separate firmware files one for the ESP32 S3 on the [Qualia b
 
 ## [Sensor reading](/firmware/sensorreading%20stuff/)
 
-To be added.
+Sensor reading is done via I2C by the ESP32 S2.
+
+## [pc visualisation](/firmware/pc%20visualisation/)
+
+Because I couldn't get the connection between the tro ESP boards working I decided on writing a small Python script that does the job. On the display a screen demo will be running.

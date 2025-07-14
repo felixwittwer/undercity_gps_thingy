@@ -8,6 +8,12 @@ This folder contains the files for 3D printing-
 - middle_case.stl
 - bottom_case.stl
 
+<p float="left">
+    <img src="../production/top_case.png" width="200" />
+    <img src="../production/middle_case.png" width="200" />
+    <img src="../production/bottom_case.png" width="200" />
+</p>
+
 ## newer version with less overhangs
 
 - top_case_bezzle.stl

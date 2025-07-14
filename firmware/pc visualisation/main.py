@@ -7,9 +7,9 @@ import sys
 # === CONFIG ===
 SERIAL_PORT = 'COM7'
 BAUD_RATE    = 9600
-WINDOW_SIZE  = 600
-DOT_RADIUS   = 5
-MAX_RANGE    = 10
+WINDOW_SIZE  = 800
+DOT_RADIUS   = 20
+MAX_RANGE    = 1
 
 # Button properties
 BUTTON_WIDTH, BUTTON_HEIGHT = 180, 40
